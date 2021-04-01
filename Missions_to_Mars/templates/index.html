@@ -4,31 +4,61 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mars Scraping</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
 
-    <div class="jumbotron container text-center">
+    <div class="jumbotron text-center container">
         <h1 class="display-3">Mission To Mars</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <p class="lead">This is a web application that scrapes various websites for data related to the Mission to Mars and displays the information in a single HTML page.</p>
         <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Scrape New Data</a>
-      </div>
+        <p>Feel free to hit this button to update the data.</p>
+        <a class="btn btn-primary btn-lg" href="../scrape" role="button">Scrape New Data</a>
+    </div>
 
-      <h1>Latest Mars News:</h1>
-      <h2>{{mars.news_title}}</h2>
-      <h3>{{mars.news_p}}</h3>
-      <br>
-      <h1>Featured Mars Image</h1>
-      <img src="{{mars.featured_image_url}}" alt="featured image">
+    <div class="container">
 
+        <div class="row">
+
+          <div class="col-12 p-3 m-3">
+            <h1>Latest Mars News:</h1>
+            <h2>{{ mars.news_title }}</h2>
+            <h4>{{ mars.news_p }}</h4>
+          </div>          
+
+        </div>
+
+        <div class="row p-3 m-3">
+
+            <div class="col-5">
+                <h1>Featured Mars Image</h1>
+                <img src="{{ mars.featured_image_url }}" class="img-fluid">
+            </div>
+            <div class="col-5">
+                <h1>Facts Table</h1>
+                {{ mars.html_table | safe }}
+            </div>
+                                    
+        </div>
+
+        <div class="row">
+            <h1 class="col-12 text-center py-3 m-3">Mars Hemispheres</h1>
+            {% for i in mars.hemisphere_images %}            
+            <div class="col-3 p-3">
+                <div class="card">
+                    <img src="{{ i.image_url }}" class="card-img-top">
+                    <div class="card-body">
+                      <p class="card-text">{{ i.title }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}            
+        </div>
+        
+        
+    </div>
     
-
-
-
-
 </body>
 </html>
 
